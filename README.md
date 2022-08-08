@@ -1,28 +1,52 @@
-## Template for Haskell + Nix projects.
+# Template for Haskell + Nix projects.
 
-Uses IOHK's [`haskell.nix`](https://github.com/input-output-hk/haskell.nix) for setting up an environment containing `ghc`, `cabal`, `hoogle`, `ormolu`, and `haskell-language-server`.
+A simplified Haskell + Nix project template and tutorial forked from [template-haskell](https://github.com/jonascarpay/template-haskell).
 
-### Usage
+Uses IOG's [`haskell.nix`](https://github.com/input-output-hk/haskell.nix) for setting up an environment containing `ghc`, `cabal`, `hoogle`, and `haskell-language-server`.
 
-Clone/copy this repo to the intended package location, and run the wizard.
-```bash
-git clone https://github.com/jonascarpay/template-haskell <my-project>
-cd <my-project>
-./wizard.sh
-```
+## Install Nix
+Start by [installing Nix](https://nixos.org/download.html) for your operating system.
 
-See [the accompanying blog post](https://jonascarpay.com/posts/2021-01-28-haskell-project-template.html) for more information.
+## Install Flakes
+1. Install `nixFlakes` in your environment with the following command:
+    ```bash
+    $ nix-env -iA nixpkgs.nixFlakes
+    ```
+2. Edit either `~/.config/nix/nix.conf` or `/etc/nix/nix.conf` and add the following line:
+    ```text
+    experimental-features = nix-command flakes
+    ```
 
-### Flakes
+**Note:** if you installed Nix in multi-user mode in the previous section, you'll need to restart the nix-daemon:
 
-Since both I and all users I've talked to never use the non-flakes version anymore, I have decided to drop support for it.
-So, **`template-haskell` is now flakes-only**.
-If you disagree with this decision, and are prepared to maintain a non-flakes version, please open an issue and we'll work something out.
+  ```bash
+  $ sudo systemctl restart nix-daemon
+  ```
 
-Don't worry if you have not used flakes before, the practical implications of this change are minimal.
-After [enabling flakes support](https://nixos.wiki/wiki/Flakes#Installing_flakes), just use `nix build` and `nix develop` instead of `nix-build` and `nix-shell`, respectively.
+[Reference](https://nixos.wiki/wiki/Flakes#Non-NixOS)
 
-### CI
+## Create Repository from Template
+1. Click the green `Use this template` button at the top right of this repository page, name your project, and click `Create repository from template`.
+2. Click the `Code` dropdown button on your repository page and copy the **HTTPS** link.
+3. In a terminal window, enter the directory where you'd like your project to be stored and enter the following, pasting in your repository URL:
+    ```bash
+    $ git clone https://github.com/<your github username>/<your project name>.git
+    ```
 
-Default CI consists of a Stack matrix, Cabal matrix, and Nix build.
-Don't forget to look at `.github/workflows/CI.yaml` and tweak this to your project.
+## Run Wizard to Configure Project
+1. In your terminal, enter your project directory (i.e. `$ cd <your project name>/`) and run the following command to start the wizard script:
+    ```bash
+    $ ./wizard.sh
+    ```
+2. Respond to the prompts as follows:
+  * `Package name [<your project name>]:` hit `ENTER` to accept the default.
+  * `Author name [<your name>]:` hit `ENTER` to accept the default.
+  * `Author email [<your email>]:` hit `ENTER` to accept the default.
+  * `Reinitialize git history? [Y/n]?` type `n` and `ENTER`.
+
+3. Stage, commit and push your changes:
+    ```bash
+    $ git add -A
+    $ git commit -m "Set up project"
+    $ git push
+    ```

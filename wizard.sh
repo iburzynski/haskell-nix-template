@@ -6,7 +6,7 @@ indent() {
 }
 
 PKGNAME_DEFAULT="$(basename "$(pwd)")"
-if [ "$PKGNAME_DEFAULT" = "template-haskell" ]; then
+if [ "$PKGNAME_DEFAULT" = "haskell-nix-template" ]; then
     PKGNAME_DEFAULT="my-project"
 fi
 read -r -p "Package name [$PKGNAME_DEFAULT]: " PKGNAME
@@ -22,7 +22,7 @@ EMAIL=${EMAIL:-$EMAIL_DEFAULT}
 
 currentyear=$(date +"%Y")
 
-echo "Running template-haskell Haskell project generator wizard"
+echo "Running haskell-nix-template project generator wizard"
 
 echo "Substituting placeholder variables..."
 (

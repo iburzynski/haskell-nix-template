@@ -1,4 +1,4 @@
 import Lib
 
 main :: IO ()
-main = putStrLn "heyyyyyy"
+main = putStrLn "Hello Haskell + Nix!"
