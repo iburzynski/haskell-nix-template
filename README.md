@@ -4,17 +4,25 @@ A simplified Haskell + Nix project template and tutorial forked from [template-h
 
 Uses IOG's [`haskell.nix`](https://github.com/input-output-hk/haskell.nix) for setting up an environment containing `ghc`, `cabal`, `hoogle`, and `haskell-language-server`.
 
+## Nix Flakes Overview
+A flake is a source tree (such as a Git repository) containing a file named `flake.nix` in the root directory, which provides a standardized interface to Nix packages. Flakes can have dependencies on other flakes, with a `flake.lock` file pinning those dependencies to exact revisions to ensure reproducibility.
+
 ## Install Nix
 Start by [installing Nix](https://nixos.org/download.html) for your operating system.
 
-## Install Flakes
+## Install Flakes & Set Up Binary Cache
 1. Install `nixFlakes` in your environment with the following command:
     ```bash
     $ nix-env -iA nixpkgs.nixFlakes
     ```
-2. Edit either `~/.config/nix/nix.conf` or `/etc/nix/nix.conf` and add the following line:
+2. Edit either `/etc/nix/nix.conf`, or if you are a trusted user, `~/.config/nix/nix.conf`, and add the following lines:
     ```text
+    # Enable `nix` command and flakes
     experimental-features = nix-command flakes
+
+    # Binary Cache for Haskell.nix
+    trusted-public-keys = [...] hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ= [...]
+    substituters = [...] https://cache.iog.io [...]
     ```
 
 **Note:** if you installed Nix in multi-user mode in the previous section, you'll need to restart the nix-daemon:
